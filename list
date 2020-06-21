@@ -1,0 +1,85 @@
+#include<iostream>
+using namespace std;
+typedef int elem_type;
+typedef struct node
+{
+elem_type data;
+struct node *next;
+}*List,*Node;
+void add(List l,elem_type N)
+{
+	l->data++;//the number of list element +1
+while(l->next!=NULL)
+	{
+		l=l->next;
+	}//find the tail of list;
+	l->next = (Node)new node;
+	l->next->next=NULL;
+	l->next->data=N;
+}
+
+node* Find(List l,elem_type N)
+{
+	if(l->data==0)return NULL;
+l=l->next;
+	while(l!=NULL)
+	{
+		if(l->data==N)return l;
+		l=l->next;
+	}
+return NULL;
+}
+bool Delete(List l,elem_type N)
+{
+	Node goal=Find(l,N);
+	if(l==NULL)return 0;
+	else
+	{
+	l->data--;
+		while(l->next!=NULL)
+		{
+			if(l->next==goal)
+			{
+				l->next=l->next->next;
+				delete goal;
+				return 1;
+			}
+			l=l->next;
+		}
+	}
+	delete l;//if the element in the tail
+	return 1;
+}
+bool Modify(List l,elem_type N,elem_type M)
+{
+	Node goal = Find(l,N);
+	if(l==NULL)return 0;
+	goal->data = M;
+	return 1;
+}
+void show(List l)
+{
+l=l->next;
+	while(l!=NULL)
+		{
+			cout<<l->data<<endl;
+			l=l->next;
+		}
+}
+int main()
+{
+cout<<"hello"<<endl;
+List l=(Node)new node;
+l->next=NULL;
+l->data=0;
+for(int i=0;i<10;i++)
+{
+	add(l,i);
+//	cout<<i<<endl;
+}
+show(l);
+Delete(l,3);
+show(l);
+Modify(l,9,10);
+show(l);
+}
