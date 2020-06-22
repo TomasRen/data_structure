@@ -1,0 +1,53 @@
+//Building a large top heap
+#include<iostream>
+#include<time.h>
+#define MAX 100000000
+using namespace std;
+void Insert(int* Heap,int& SIZE,int N)
+{
+	int son=SIZE+1;
+	while(N>Heap[son/2])
+	{
+		Heap[son]=Heap[son/2];
+		son=son/2;
+	}
+	Heap[son]=N;
+	SIZE++;
+}
+int Pop(int *Heap,int& SIZE)
+{
+	int temp=Heap[1];//record the top;
+	if(SIZE==0)exit(0);
+int father=1;
+int son;
+	while(father*2<=SIZE)
+	{
+		son=father*2;
+		if(son+1<=SIZE&&Heap[son]<Heap[son+1])son++;//Select the biggest one
+		if(Heap[SIZE]<Heap[son])//put the last one to the top,ans resort
+		{
+			Heap[father]=Heap[son];
+			father=son;
+		}
+		else break;
+	}
+	Heap[father]=Heap[SIZE];//finise resort
+	SIZE--;
+	return temp;
+
+}
+int main()
+{
+int Heap[100]={MAX},SIZE=0;
+srand(time(0));
+		for(int i=1;i<100;i++)
+		{
+		Insert(Heap,SIZE,rand()%1000);
+		}
+		for(int i=1;i<100;i++)
+		{
+		cout<<Pop(Heap,SIZE)<<endl;
+		}
+
+
+}
