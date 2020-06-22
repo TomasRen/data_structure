@@ -1,0 +1,82 @@
+[tomas@localhost linear_table]$ cat some*.cpp
+/*************************************************************************
+    > File Name: some_sort_algorithm.cpp
+    > Author: tomas
+    > Mail: r731799987@gmail.com
+    > Created Time: Sun 21 Jun 2020 06:40:10 PM PDT
+ ************************************************************************/
+#include<iostream>
+#include<time.h>
+#define MAX 10000000
+using namespace std;
+void Bubble_sort(int* line,int N)
+{
+	int temp;
+	for(int i=0;i<N-1;i++)
+		for(int j=0;j<N-i-1;j++)
+		{
+			if(line[j]>line[j+1])	
+			{
+				temp=line[j];
+				line[j]=line[j+1];
+				line[j+1]=temp;
+			}
+		}
+}
+void Select_sort(int *line,int N)
+{
+	int temp,i,j,Min;
+	i=0,j=0;
+	while(i<N-1)
+	{Min=i;
+		for( j=i;j<N;j++)
+			{
+				if(line[j]<line[Min])
+				{
+				Min=j;
+				}
+			
+			}
+		temp=line[i];
+		line[i]=line[Min];
+		line[Min]=temp;
+		i++;
+	}
+}
+void Insert_sort(int* line,int N)
+{
+	int temp,i=0,j=0;
+	for(i=1;i<N;i++)
+	{
+
+	temp=line[i];
+		for(j=i-1;j>=0;j--)
+		{
+			if(temp<line[j])line[j+1]=line[j];
+			else
+			{
+				break;
+			}
+		}
+		line[j+1]=temp;
+		
+	}
+}
+int main()
+{
+	int line[10];
+	srand(time(0));
+for(int i=0;i<3;i++)
+{
+	for(int j=0;j<10;j++)
+	{
+		line[j]=rand()%100;
+	}
+if(i==0)Bubble_sort(line,10);
+if(i==1)Select_sort(line,10);
+if(i==2)Insert_sort(line,10);
+for(int k=0;k<10;k++)cout<<line[k]<<' ';
+cout<<endl;
+}
+
+}
